@@ -13,8 +13,8 @@ namespace mwse {
 
 			// Binding for TES3::LeveledListNode
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::LeveledListNode>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::LeveledListNode>("tes3leveledListNode");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -22,15 +22,12 @@ namespace mwse {
 
 				// Access to other objects that need to be packaged.
 				usertypeDefinition.set("object", sol::readonly_property([](TES3::LeveledListNode& self) { return makeLuaObject(self.object); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3leveledListNode", usertypeDefinition);
 			}
 
 			// Binding for TES3::LeveledCreature
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::LeveledCreature>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::LeveledCreature>("tes3leveledCreature");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -45,15 +42,12 @@ namespace mwse {
 
 				// Basic function binding.
 				usertypeDefinition.set("pickFrom", [](TES3::LeveledCreature& self) { return makeLuaObject(self.resolve()); });
-
-				// Finish up our usertype.
-				state.set_usertype("tes3leveledCreature", usertypeDefinition);
 			}
 
 			// Binding for TES3::LeveledItem
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::LeveledItem>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::LeveledItem>("tes3leveledItem");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -71,9 +65,6 @@ namespace mwse {
 
 				// Basic function binding.
 				usertypeDefinition.set("pickFrom", [](TES3::LeveledItem& self) { return makeLuaObject(self.resolve()); });
-
-				// Finish up our usertype.
-				state.set_usertype("tes3leveledItem", usertypeDefinition);
 			}
 		}
 	}

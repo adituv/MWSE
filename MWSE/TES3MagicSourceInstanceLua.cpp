@@ -15,8 +15,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::MagicSourceInstance>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::MagicSourceInstance>("tes3magicSourceInstance");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -44,9 +44,6 @@ namespace mwse {
 
 			// Functions exposed as properties.
 			usertypeDefinition.set("sourceEffects", sol::readonly_property([](TES3::MagicSourceInstance& self) { return self.sourceCombo.getSourceEffects(); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3magicSourceInstance", usertypeDefinition);
 		}
 	}
 }

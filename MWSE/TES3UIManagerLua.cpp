@@ -284,7 +284,7 @@ namespace mwse {
 			// Add binding for TES3::UI::TreeItem type.
 			// TODO: Move this to its own file after TES3::UI::Tree has been made a template.
 			{
-				auto usertypeDefinition = state.create_simple_usertype<TES3::UI::TreeItem>();
+				auto usertypeDefinition = state.new_usertype<TES3::UI::TreeItem>("tes3uiTreeItem");
 
 				usertypeDefinition.set("id", &TES3::UI::TreeItem::key);
 				usertypeDefinition.set("name", sol::property([](TES3::UI::TreeItem& self) {
@@ -316,8 +316,6 @@ namespace mwse {
 					}
 					return sol::nil;
 				}));
-
-				state.set_usertype("tes3uiProperty", usertypeDefinition);
 			}
 		}
 

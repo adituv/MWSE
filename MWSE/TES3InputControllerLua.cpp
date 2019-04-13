@@ -14,22 +14,19 @@ namespace mwse {
 
 			// Binding for TES3::InputConfig
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::InputConfig>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::InputConfig>("tes3inputConfig");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("code", &TES3::InputConfig::keyCode);
 				usertypeDefinition.set("device", &TES3::InputConfig::device);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3inputConfig", usertypeDefinition);
 			}
 
 			// Binding for DIMOUSESTATE2
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<DIMOUSESTATE2>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<DIMOUSESTATE2>("tes3directInputMouseState");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -39,15 +36,12 @@ namespace mwse {
 
 				// Indirect bindings to unions and arrays.
 				usertypeDefinition.set("buttons", sol::readonly_property([](DIMOUSESTATE2& self) { return std::ref(self.rgbButtons); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3directInputMouseState", usertypeDefinition);
 			}
 
 			// Binding for TES3::InputController
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::InputController>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::InputController>("tes3inputController");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -67,9 +61,6 @@ namespace mwse {
 				usertypeDefinition.set("isKeyDown", &TES3::InputController::isKeyDown);
 				usertypeDefinition.set("isKeyPressedThisFrame", &TES3::InputController::isKeyPressedThisFrame);
 				usertypeDefinition.set("isKeyReleasedThisFrame", &TES3::InputController::isKeyReleasedThisFrame);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3inputController", usertypeDefinition);
 			}
 		}
 	}

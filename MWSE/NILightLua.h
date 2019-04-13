@@ -6,7 +6,7 @@ namespace mwse {
 	namespace lua {
 		// Speed-optimized binding for NI::Light.
 		template <typename T>
-		void setUserdataForNILight(sol::simple_usertype<T>& usertypeDefinition) {
+		void setUserdataForNILight(sol::usertype<T>& usertypeDefinition) {
 			setUserdataForNIDynamicEffect(usertypeDefinition);
 
 			// Basic property binding.
@@ -18,7 +18,7 @@ namespace mwse {
 
 		// Speed-optimized binding for NI::PointLight.
 		template <typename T>
-		void setUserdataForNIPointLight(sol::simple_usertype<T>& usertypeDefinition) {
+		void setUserdataForNIPointLight(sol::usertype<T>& usertypeDefinition) {
 			setUserdataForNILight(usertypeDefinition);
 
 			// Basic property binding.

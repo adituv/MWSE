@@ -21,8 +21,8 @@ namespace mwse {
 
 			// Binding for TES3::MobilePlayer
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::MobilePlayer>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::MobilePlayer>("tes3mobilePlayer");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -93,15 +93,12 @@ namespace mwse {
 
 				// Functions exposed as properties.
 				usertypeDefinition.set("is3rdPerson", sol::readonly_property(&TES3::MobilePlayer::is3rdPerson));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3mobilePlayer", usertypeDefinition);
 			}
 
 			// Binding for TES3::MarkData.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::MarkData>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::MarkData>("tes3markData");
 
 				// Basic property bindings.
 				usertypeDefinition.set("position", &TES3::MarkData::position);
@@ -109,9 +106,6 @@ namespace mwse {
 
 				// Access to other objects that need to be packaged.
 				usertypeDefinition.set("cell", sol::readonly_property([](TES3::MarkData& self) { return makeLuaObject(self.cell); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3markData", usertypeDefinition);
 			}
 		}
 	}

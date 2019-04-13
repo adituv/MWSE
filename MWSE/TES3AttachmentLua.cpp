@@ -20,22 +20,19 @@ namespace mwse {
 
 			// Bind TES3::LightAttachmentNode
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::LightAttachmentNode>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::LightAttachmentNode>("tes3lightNode");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Access to node properties.
 				usertypeDefinition.set("light", &TES3::LightAttachmentNode::light);
 				usertypeDefinition.set("value", &TES3::LightAttachmentNode::unknown_0x4);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3lightNode", usertypeDefinition);
 			}
 
 			// Bind TES3::LockAttachmentNode
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::LockAttachmentNode>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::LockAttachmentNode>("tes3lockNode");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Access to node properties.
@@ -58,15 +55,12 @@ namespace mwse {
 					[](TES3::LockAttachmentNode& self) { return makeLuaObject(self.trap); },
 					[](TES3::LockAttachmentNode& self, TES3::Spell * spell) { self.trap = spell; }
 				));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3lockNode", usertypeDefinition);
 			}
 
 			// Bind TES3::TravelDestination
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::TravelDestination>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::TravelDestination>("tes3travelDestinationNode");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Access to other objects that need to be packaged.
@@ -78,9 +72,6 @@ namespace mwse {
 					[](TES3::TravelDestination& self) { return makeLuaObject(self.destination); },
 					[](TES3::TravelDestination& self, TES3::Reference * destination) { self.destination = destination; }
 				));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3travelDestinationNode", usertypeDefinition);
 			}
 		}
 	}

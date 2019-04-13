@@ -76,8 +76,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Reference>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Reference>("tes3reference");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -168,9 +168,6 @@ namespace mwse {
 			usertypeDefinition.set("previousNode", sol::readonly_property([](TES3::Reference& self) { return makeLuaObject(self.previousInCollection); }));
 			usertypeDefinition.set("nextNode", sol::readonly_property([](TES3::Reference& self) { return makeLuaObject(self.nextInCollection); }));
 			usertypeDefinition.set("nodeData", sol::readonly_property([](TES3::Reference& self) { return makeLuaObject(&self); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3reference", usertypeDefinition);
 		}
 	}
 }

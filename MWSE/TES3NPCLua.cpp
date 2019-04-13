@@ -3,6 +3,8 @@
 #include "LuaManager.h"
 #include "TES3ActorLua.h"
 
+#include "TES3Alchemy.h"
+#include "TES3Enchantment.h"
 #include "TES3NPC.h"
 #include "TES3BodyPart.h"
 #include "TES3Race.h"
@@ -18,8 +20,8 @@ namespace mwse {
 
 			// Binding for TES3::NPC
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::NPC>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::NPC>("tes3npc");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -81,15 +83,12 @@ namespace mwse {
 
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("model", sol::property(&TES3::NPC::getModelPath, &TES3::NPC::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3npc", usertypeDefinition);
 			}
 
 			// Binding for TES3::NPCInstance
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::NPCInstance>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::NPCInstance>("tes3npcInstance");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -148,9 +147,6 @@ namespace mwse {
 
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("model", sol::property(&TES3::NPCInstance::getModelPath, &TES3::NPCInstance::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3npcInstance", usertypeDefinition);
 			}
 		}
 	}

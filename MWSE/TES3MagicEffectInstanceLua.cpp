@@ -16,8 +16,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::MagicEffectInstance>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::MagicEffectInstance>("tes3magicEffectInstance");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -35,9 +35,6 @@ namespace mwse {
 			usertypeDefinition.set("lastUsedShield", sol::readonly_property([](TES3::MagicEffectInstance& self) { return makeLuaObject(self.lastUsedShield); }));
 			usertypeDefinition.set("lastUsedWeapon", sol::readonly_property([](TES3::MagicEffectInstance& self) { return makeLuaObject(self.lastUsedWeapon); }));
 			usertypeDefinition.set("target", sol::readonly_property([](TES3::MagicEffectInstance& self) { return makeLuaObject(self.target); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3magicEffectInstance", usertypeDefinition);
 		}
 	}
 }

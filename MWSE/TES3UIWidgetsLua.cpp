@@ -122,7 +122,7 @@ namespace mwse {
 			// Button (PartButton)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetButton>();
+				auto usertypeDefinition = state.new_usertype<WidgetButton>("tes3uiButton");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("state", sol::property(&WidgetButton::getState, &WidgetButton::setState));
@@ -153,15 +153,13 @@ namespace mwse {
 				usertypeDefinition.set("pressedActive", sol::property(
 					[](WidgetButton& self, sol::table c) { self.setColourActivePressed({ c[1], c[2], c[3] }); }
 				));
-
-				state.set_usertype("tes3uiButton", usertypeDefinition);
 			}
 
 			//
 			// FillBar (PartFillbar)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetFillbar>();
+				auto usertypeDefinition = state.new_usertype<WidgetFillbar>("tes3uiFillBar");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("current", sol::property(&WidgetFillbar::getCurrent, &WidgetFillbar::setCurrent));
@@ -171,15 +169,13 @@ namespace mwse {
 					[](WidgetFillbar& self, sol::table c) { self.setFillColour({ c[1], c[2], c[3] }); }
 				));
 				usertypeDefinition.set("fillAlpha", sol::property(&WidgetFillbar::setFillAlpha));
-
-				state.set_usertype("tes3uiFillBar", usertypeDefinition);
 			}
 
 			//
 			// ParagraphInput (PartParagraphInput)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetParagraphInput>();
+				auto usertypeDefinition = state.new_usertype<WidgetParagraphInput>("tes3uiParagraphInput");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("lengthLimit", sol::property(
@@ -189,30 +185,26 @@ namespace mwse {
 						self.setLengthLimit(limit.value_or(defaultLength));
 					}
 				));
-
-				state.set_usertype("tes3uiParagraphInput", usertypeDefinition);
 			}
 
 			//
 			// Slider (PartScrollBar)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetScrollBar>();
+				auto usertypeDefinition = state.new_usertype<WidgetScrollBar>("tes3uiSlider");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("current", sol::property(&WidgetScrollBar::getCurrent, &WidgetScrollBar::setCurrent));
 				usertypeDefinition.set("max", sol::property(&WidgetScrollBar::getMax, &WidgetScrollBar::setMax));
 				usertypeDefinition.set("step", sol::property(&WidgetScrollBar::getStepX, &WidgetScrollBar::setStepX));
 				usertypeDefinition.set("jump", sol::property(&WidgetScrollBar::getJumpX, &WidgetScrollBar::setJumpX));
-
-				state.set_usertype("tes3uiSlider", usertypeDefinition);
 			}
 
 			//
 			// ScrollPane (PartScrollPane)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetScrollPane>();
+				auto usertypeDefinition = state.new_usertype<WidgetScrollPane>("tes3uiScrollPane");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("contentsChanged", &WidgetScrollPane::contentPaneChanged);
@@ -222,15 +214,13 @@ namespace mwse {
 
 				// Quick access to the pane contents.
 				usertypeDefinition.set("contentPane", sol::readonly_property(&WidgetScrollPane::getContentPane));
-
-				state.set_usertype("tes3uiScrollPane", usertypeDefinition);
 			}
 
 			//
 			// TextInput (PartTextInput)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetTextInput>();
+				auto usertypeDefinition = state.new_usertype<WidgetTextInput>("tes3uiTextInput");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("lengthLimit", sol::property(
@@ -256,15 +246,13 @@ namespace mwse {
 					}
 				));
 				usertypeDefinition.set("eraseOnFirstKey", sol::property(&WidgetTextInput::getEraseOnFirstKey, &WidgetTextInput::setEraseOnFirstKey));
-
-				state.set_usertype("tes3uiTextInput", usertypeDefinition);
 			}
 
 			//
 			// TextSelect (PartTextSelect)
 			//
 			{
-				auto usertypeDefinition = state.create_simple_usertype<WidgetTextSelect>();
+				auto usertypeDefinition = state.new_usertype<WidgetTextSelect>("tes3uiTextSelect");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				usertypeDefinition.set("state", sol::property(&WidgetTextSelect::getState, &WidgetTextSelect::setState));
@@ -295,8 +283,6 @@ namespace mwse {
 				usertypeDefinition.set("pressedActive", sol::property(
 					[](WidgetTextSelect& self, sol::table c) { self.setColourActivePressed({ c[1], c[2], c[3] }); }
 				));
-
-				state.set_usertype("tes3uiTextSelect", usertypeDefinition);
 			}
 		}
 

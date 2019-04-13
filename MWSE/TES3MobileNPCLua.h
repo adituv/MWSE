@@ -2,6 +2,8 @@
 
 #include "TES3MobileActorLua.h"
 
+#include "TES3Alchemy.h"
+#include "TES3Enchantment.h"
 #include "TES3MobileNPC.h"
 #include "TES3NPC.h"
 #include "TES3Skill.h"
@@ -9,7 +11,7 @@
 namespace mwse {
 	namespace lua {
 		template <typename T>
-		void setUserdataForMobileNPC(sol::simple_usertype<T>& usertypeDefinition) {
+		void setUserdataForMobileNPC(sol::usertype<T>& usertypeDefinition) {
 			setUserdataForMobileActor(usertypeDefinition);
 
 			// Basic property binding.

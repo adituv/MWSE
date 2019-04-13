@@ -18,23 +18,20 @@ namespace mwse {
 
 			// Binding for TES3::UI::FontColor
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::UI::FontColor>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::UI::FontColor>("tes3uiFontColor");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("r", &TES3::UI::FontColor::r);
 				usertypeDefinition.set("g", &TES3::UI::FontColor::g);
 				usertypeDefinition.set("b", &TES3::UI::FontColor::b);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3uiFontColor", usertypeDefinition);
 			}
 
 			// Binding for TES3::UI::FontColor
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::UI::MenuController>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::UI::MenuController>("tes3uiMenuController");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -50,9 +47,6 @@ namespace mwse {
 				usertypeDefinition.set("magicMenuEnabled", sol::property(&TES3::UI::MenuController::getMagicMenuEnabled, &TES3::UI::MenuController::setMagicMenuEnabled));
 				usertypeDefinition.set("mapMenuEnabled", sol::property(&TES3::UI::MenuController::getMapMenuEnabled, &TES3::UI::MenuController::setMapMenuEnabled));
 				usertypeDefinition.set("statsMenuEnabled", sol::property(&TES3::UI::MenuController::getStatsMenuEnabled, &TES3::UI::MenuController::setStatsMenuEnabled));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3uiMenuController", usertypeDefinition);
 			}
 		}
 	}

@@ -12,8 +12,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Fader>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Fader>("tes3fader");
 			usertypeDefinition.set("new", sol::constructors<TES3::Fader(), TES3::Fader(float, bool)>());
 
 			// Function bindings.
@@ -64,9 +64,6 @@ namespace mwse {
 
 				return true;
 			});
-
-			// Finish up our usertype.
-			state.set_usertype("tes3fader", usertypeDefinition);
 		}
 	}
 }

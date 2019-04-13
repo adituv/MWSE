@@ -12,8 +12,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Apparatus>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Apparatus>("tes3apparatus");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -37,9 +37,6 @@ namespace mwse {
 
 			// TODO: Deprecated. Remove before 2.1-stable.
 			usertypeDefinition.set("model", sol::property(&TES3::Apparatus::getModelPath, &TES3::Apparatus::setModelPath));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3apparatus", usertypeDefinition);
 		}
 	}
 }

@@ -325,8 +325,8 @@ namespace mwse {
 
 			// Bind TimerController.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TimerController>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TimerController>("mwseTimerController");
 				usertypeDefinition.set("new", sol::constructors<TimerController(), TimerController(double)>());
 
 				// Basic property binding.
@@ -336,15 +336,12 @@ namespace mwse {
 				usertypeDefinition.set("create", [](TimerController& self, sol::table params) {
 					return startTimer(&self, params);
 				});
-
-				// Finish up our usertype.
-				state.set_usertype("mwseTimerController", usertypeDefinition);
 			}
 
 			// Bind Timer.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<Timer>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<Timer>("mwseTimer");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -384,9 +381,6 @@ namespace mwse {
 				usertypeDefinition.set("cancel", [](std::shared_ptr<Timer> self) {
 					return self->controller->cancelTimer(self);
 				});
-
-				// Finish up our usertype.
-				state.set_usertype("mwseTimer", usertypeDefinition);
 			}
 
 			// Create our timer library.

@@ -16,8 +16,8 @@ namespace mwse {
 
 			// Binding for TES3::BodyPart.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::BodyPart>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::BodyPart>("tes3bodyPart");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -48,24 +48,18 @@ namespace mwse {
 					[](TES3::BodyPart& self) { return self.getFlag(TES3::BodyPartFlag::Playable); },
 					[](TES3::BodyPart& self, bool set) { self.setFlag(TES3::BodyPartFlag::Playable, set); }
 				));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3bodyPart", usertypeDefinition);
 			}
 
 			// Binding for TES3::WearablePart
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::WearablePart>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::WearablePart>("tes3wearablePart");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("type", &TES3::WearablePart::bodypartID);
 				usertypeDefinition.set("male", &TES3::WearablePart::male);
 				usertypeDefinition.set("female", &TES3::WearablePart::female);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3wearablePart", usertypeDefinition);
 			}
 		}
 	}

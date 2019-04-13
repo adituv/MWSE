@@ -47,8 +47,8 @@ namespace mwse {
 
 			// Binding for TES3::Dialogue
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Dialogue>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Dialogue>("tes3dialogue");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -83,15 +83,12 @@ namespace mwse {
 					TES3::MobileActor * mobile = getOptionalParamMobileActor(params, "actor");
 					return makeLuaObject(self.getDeepFilteredInfo(reinterpret_cast<TES3::Actor*>(mobile->reference->baseObject), mobile->reference, true));
 				});
-
-				// Finish up our usertype.
-				state.set_usertype("tes3dialogue", usertypeDefinition);
 			}
 
 			// Binding for TES3::DialogueInfo
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::DialogueInfo>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::DialogueInfo>("tes3dialogueinfo");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -154,15 +151,12 @@ namespace mwse {
 
 				// Functions exposed as properties.
 				usertypeDefinition.set("text", sol::readonly_property(&TES3::DialogueInfo::getText));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3dialogueinfo", usertypeDefinition);
 			}
 
 			// Binding for TES3::Quest
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Quest>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Quest>("tes3quest");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -175,9 +169,6 @@ namespace mwse {
 
 				// Override id property to point to the name.
 				usertypeDefinition.set("id", sol::readonly_property(&TES3::Quest::name));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3dialogue", usertypeDefinition);
 			}
 		}
 	}

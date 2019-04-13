@@ -17,8 +17,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<NI::SwitchNode>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<NI::SwitchNode>("niSwitchNode");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -36,9 +36,6 @@ namespace mwse {
 				self.switchIndex = index;
 			}
 				));
-
-			// Finish up our usertype.
-			state.set_usertype("niSwitchNode", usertypeDefinition);
 		}
 	}
 }

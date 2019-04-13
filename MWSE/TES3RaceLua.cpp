@@ -14,50 +14,41 @@ namespace mwse {
 
 			// Binding for TES3::Race::SkillBonus.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Race::SkillBonus>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Race::SkillBonus>("tes3raceSkillBonus");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("skill", &TES3::Race::SkillBonus::skill);
 				usertypeDefinition.set("bonus", &TES3::Race::SkillBonus::bonus);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3raceSkillBonus", usertypeDefinition);
 			}
 
 			// Binding for TES3::Race::BaseAttribute.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Race::BaseAttribute>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Race::BaseAttribute>("tes3raceBaseAttribute");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("male", &TES3::Race::BaseAttribute::male);
 				usertypeDefinition.set("female", &TES3::Race::BaseAttribute::female);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3raceBaseAttribute", usertypeDefinition);
 			}
 
 			// Binding for TES3::Race::HeightWeight.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Race::HeightWeight>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Race::HeightWeight>("tes3raceHeightWeight");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("male", &TES3::Race::HeightWeight::male);
 				usertypeDefinition.set("female", &TES3::Race::HeightWeight::female);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3raceHeightWeight", usertypeDefinition);
 			}
 
 			// Binding for TES3::Race::BodyParts.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Race::BodyParts>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Race::BodyParts>("tes3raceBodyParts");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -77,15 +68,12 @@ namespace mwse {
 				usertypeDefinition.set("clavicle", &TES3::Race::BodyParts::clavicle);
 				usertypeDefinition.set("tail", &TES3::Race::BodyParts::tail);
 				usertypeDefinition.set("head2", &TES3::Race::BodyParts::head2);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3raceBodyParts", usertypeDefinition);
 			}
 
 			// Binding for TES3::Race.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Race>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Race>("tes3race");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -105,9 +93,6 @@ namespace mwse {
 
 				// Functions exposed as properties.
 				usertypeDefinition.set("name", sol::readonly_property([](TES3::Race& self) { return self.name; }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3race", usertypeDefinition);
 			}
 		}
 	}

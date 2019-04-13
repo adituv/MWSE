@@ -23,8 +23,8 @@ namespace mwse {
 
 			// Binding for TES3::NonDynamicData
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::NonDynamicData>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::NonDynamicData>("tes3nonDynamicData");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -58,15 +58,12 @@ namespace mwse {
 
 				// Deprecated functions. TODO: Remove before 2.1 final.
 				usertypeDefinition.set("findDialogInfo", &TES3::NonDynamicData::findDialogue); // Badly named. Actually gives DIAL, not INFO.
-
-				// Finish up our usertype.
-				state.set_usertype("tes3nonDynamicData", usertypeDefinition);
 			}
 
 			// Binding for TES3::DataHandler
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::DataHandler>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::DataHandler>("tes3dataHandler");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -86,9 +83,6 @@ namespace mwse {
 
 				// Indirect bindings to unions and arrays.
 				usertypeDefinition.set("exteriorCells", sol::readonly_property([](TES3::DataHandler& self) { return std::ref(self.exteriorCellData); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3dataHandler", usertypeDefinition);
 			}
 		}
 	}

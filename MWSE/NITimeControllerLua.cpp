@@ -17,8 +17,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<NI::TimeController>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<NI::TimeController>("niTimeController");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -34,9 +34,6 @@ namespace mwse {
 			usertypeDefinition.set("lastTime", &NI::TimeController::lastTime);
 			usertypeDefinition.set("target", sol::readonly_property(&NI::TimeController::target));
 			usertypeDefinition.set("nextController", &NI::TimeController::nextController);
-
-			// Finish up our usertype.
-			state.set_usertype("niTimeController", usertypeDefinition);
 		}
 	}
 }

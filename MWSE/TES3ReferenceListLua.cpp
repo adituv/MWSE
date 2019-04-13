@@ -14,8 +14,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::ReferenceList>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::ReferenceList>("tes3referenceList");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -25,9 +25,6 @@ namespace mwse {
 			usertypeDefinition.set("cell", sol::readonly_property([](TES3::ReferenceList& self) { return makeLuaObject(self.cell); }));
 			usertypeDefinition.set("head", sol::readonly_property([](TES3::ReferenceList& self) { return makeLuaObject(self.head); }));
 			usertypeDefinition.set("tail", sol::readonly_property([](TES3::ReferenceList& self) { return makeLuaObject(self.tail); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3referenceList", usertypeDefinition);
 		}
 	}
 }

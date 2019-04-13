@@ -14,8 +14,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::ActionData>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::ActionData>("tes3actionData");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -33,9 +33,6 @@ namespace mwse {
 			usertypeDefinition.set("nockedProjectile", sol::readonly_property([](TES3::ActionData& self) { return makeLuaObject(self.nockedProjectile); }));
 			usertypeDefinition.set("stolenFrom", sol::readonly_property([](TES3::ActionData& self) { return makeLuaObject(self.stolenFromFactionOrNPC); }));
 			usertypeDefinition.set("target", sol::readonly_property([](TES3::ActionData& self) { return makeLuaObject(self.target); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3actionData", usertypeDefinition);
 		}
 	}
 }

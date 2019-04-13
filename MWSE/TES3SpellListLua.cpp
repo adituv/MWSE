@@ -15,8 +15,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::SpellList>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::SpellList>("tes3spellList");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// 
@@ -57,9 +57,6 @@ namespace mwse {
 
 				return false;
 			});
-
-			// Finish up our usertype.
-			state.set_usertype("tes3spellList", usertypeDefinition);
 		}
 	}
 }

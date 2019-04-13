@@ -17,8 +17,8 @@ namespace mwse {
 
 			// Binding for TES3::Creature
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Creature>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Creature>("tes3creature");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -78,15 +78,12 @@ namespace mwse {
 
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("model", sol::property(&TES3::Creature::getModelPath, &TES3::Creature::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3creature", usertypeDefinition);
 			}
 
 			// Binding for TES3::CreatureInstance
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::CreatureInstance>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::CreatureInstance>("tes3creatureInstance");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -155,9 +152,6 @@ namespace mwse {
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("baseCreature", sol::readonly_property([](TES3::CreatureInstance& self) { return makeLuaObject(self.baseCreature); }));
 				usertypeDefinition.set("model", sol::property(&TES3::CreatureInstance::getModelPath, &TES3::CreatureInstance::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3creatureInstance", usertypeDefinition);
 			}
 		}
 	}

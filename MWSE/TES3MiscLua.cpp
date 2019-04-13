@@ -14,8 +14,8 @@ namespace mwse {
 			sol::state& state = LuaManager::getInstance().getState();
 
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::SoulGemData>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::SoulGemData>("tes3soulGemData");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -28,14 +28,11 @@ namespace mwse {
 
 				// Data that needs to be packaged.
 				usertypeDefinition.set("item", sol::readonly_property([](TES3::SoulGemData& self) { makeLuaObject(self.item); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3soulGemData", usertypeDefinition);
 			}
 
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Misc>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Misc>("tes3misc");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -73,9 +70,6 @@ namespace mwse {
 
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("model", sol::property(&TES3::Misc::getModelPath, &TES3::Misc::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3misc", usertypeDefinition);
 			}
 		}
 	}

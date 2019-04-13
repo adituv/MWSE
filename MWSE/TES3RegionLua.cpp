@@ -18,8 +18,8 @@ namespace mwse {
 
 			// Binding for TES3::RegionSound
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::RegionSound>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::RegionSound>("tes3regionSound");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Access to other objects that need to be packaged.
@@ -40,15 +40,12 @@ namespace mwse {
 					self.chance = value;
 				}
 				));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3regionSound", usertypeDefinition);
 			}
 
 			// Binding for TES3::Region.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Region>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Region>("tes3region");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -137,9 +134,6 @@ namespace mwse {
 				// Basic function binding.
 				usertypeDefinition.set("changeWeather", &TES3::Region::changeWeather);
 				usertypeDefinition.set("randomizeWeather", &TES3::Region::randomizeWeather);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3region", usertypeDefinition);
 			}
 		}
 	}

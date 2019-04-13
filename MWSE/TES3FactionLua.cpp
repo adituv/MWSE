@@ -14,8 +14,8 @@ namespace mwse {
 
 			// Binding for TES3::Faction::Rank
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Faction::Rank>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Faction::Rank>("tes3factionRank");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -24,30 +24,24 @@ namespace mwse {
 				// Indirect bindings to unions and arrays.
 				usertypeDefinition.set("attributes", sol::readonly_property([](TES3::Faction::Rank& self) { return std::ref(self.reqAttributes); }));
 				usertypeDefinition.set("skills", sol::readonly_property([](TES3::Faction::Rank& self) { return std::ref(self.reqSkills); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3factionRank", usertypeDefinition);
 			}
 
 			// Binding for TES3::Faction::ReactionNode
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Faction::ReactionNode>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Faction::ReactionNode>("tes3factionReaction");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("reputation", &TES3::Faction::ReactionNode::reaction);
 				usertypeDefinition.set("faction", sol::readonly_property([](TES3::Faction::ReactionNode& self) { return makeLuaObject(self.faction); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3factionReaction", usertypeDefinition);
 			}
 
 			// Binding for TES3::Faction
 			//! TODO: Provide a more friendly way to access rank names. Probably needs to be hidden behind its own struct.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Faction>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Faction>("tes3faction");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -74,9 +68,6 @@ namespace mwse {
 
 				// Functions exposed as properties.
 				usertypeDefinition.set("name", sol::property(&TES3::Faction::getName, &TES3::Faction::setName));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3faction", usertypeDefinition);
 			}
 
 			// Bind iterator access.

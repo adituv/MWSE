@@ -26,8 +26,8 @@ namespace mwse {
 
 			// Binding for TES3::WorldControllerRenderCamera.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::WorldControllerRenderCamera>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::WorldControllerRenderCamera>("tes3worldControllerRenderCamera");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Access to other objects that need to be packaged.
@@ -35,15 +35,12 @@ namespace mwse {
 				usertypeDefinition.set("root", sol::readonly_property([](TES3::WorldControllerRenderCamera& self) { return makeLuaObject(self.root); }));
 				usertypeDefinition.set("cameraRoot", sol::readonly_property([](TES3::WorldControllerRenderCamera& self) { return makeLuaObject(self.cameraRoot); }));
 				usertypeDefinition.set("camera", sol::readonly_property([](TES3::WorldControllerRenderCamera& self) { return makeLuaObject(self.camera); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3worldControllerRenderCamera", usertypeDefinition);
 			}
 
 			// Binding for TES3::WorldController.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::WorldController>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::WorldController>("tes3worldController");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -134,9 +131,6 @@ namespace mwse {
 
 				// Basic function binding.
 				usertypeDefinition.set("applyEnchantEffect", &TES3::WorldController::applyEnchantEffect);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3worldController", usertypeDefinition);
 			}
 		}
 	}

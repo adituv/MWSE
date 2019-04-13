@@ -111,8 +111,8 @@ namespace mwse {
 
 			// Binding for TES3::ItemData
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::ItemData>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::ItemData>("tes3itemData");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -135,15 +135,12 @@ namespace mwse {
 
 				// Add the ability to get the unique script context from this itemdata for ease of mwscript interaction.
 				usertypeDefinition.set("context", sol::readonly_property([](TES3::ItemData& self) { return std::shared_ptr<ScriptContext>(new ScriptContext(self.script, self.scriptData)); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3itemData", usertypeDefinition);
 			}
 
 			// Binding for TES3::ItemStack
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::ItemStack>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::ItemStack>("tes3itemStack");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -152,15 +149,12 @@ namespace mwse {
 
 				// Access to other objects that need to be packaged.
 				usertypeDefinition.set("object", sol::readonly_property([](TES3::ItemStack& self) { return makeLuaObject(self.object); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3itemStack", usertypeDefinition);
 			}
 
 			// Binding for TES3::EquipmentStack
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::EquipmentStack>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::EquipmentStack>("tes3equipmentStack");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -168,15 +162,12 @@ namespace mwse {
 
 				// Access to other objects that need to be packaged.
 				usertypeDefinition.set("object", sol::readonly_property([](TES3::EquipmentStack& self) { return makeLuaObject(self.object); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3equipmentStack", usertypeDefinition);
 			}
 
 			// Binding for TES3::Inventory
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Inventory>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Inventory>("tes3inventory");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Metamethod binding.
@@ -212,9 +203,6 @@ namespace mwse {
 					self.removeItemWithData(mact, item, itemData, count, deleteItemData);
 				});
 				usertypeDefinition.set("resolveLeveledItems", [](TES3::Inventory& self, sol::optional<TES3::MobileActor*> actor) { self.resolveLeveledLists(actor.value_or(nullptr)); });
-
-				// Finish up our usertype.
-				state.set_usertype("tes3inventory", usertypeDefinition);
 			}
 		}
 	}

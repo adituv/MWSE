@@ -11,8 +11,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Enchantment>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Enchantment>("tes3enchantment");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -28,9 +28,6 @@ namespace mwse {
 
 			// Indirect bindings to unions and arrays.
 			usertypeDefinition.set("effects", sol::readonly_property([](TES3::Enchantment& self) { return std::ref(self.effects); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3enchantment", usertypeDefinition);
 		}
 	}
 }

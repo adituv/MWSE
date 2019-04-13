@@ -50,8 +50,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::GameSetting>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::GameSetting>("tes3gameSetting");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -68,9 +68,6 @@ namespace mwse {
 			usertypeDefinition.set("defaultValue", sol::readonly_property(&getDefaultValue));
 			usertypeDefinition.set("type", sol::readonly_property(&TES3::GameSetting::getType));
 			usertypeDefinition.set("value", sol::property(&getValue, &setValue));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3gameSetting", usertypeDefinition);
 		}
 	}
 }

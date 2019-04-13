@@ -15,8 +15,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Game>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Game>("tes3game");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -38,9 +38,6 @@ namespace mwse {
 
 			// Access to other objects that need to be packaged.
 			usertypeDefinition.set("playerTarget", sol::readonly_property([](TES3::Game& self) { return makeLuaObject(self.playerTarget); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3game", usertypeDefinition);
 		}
 	}
 }

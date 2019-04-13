@@ -24,8 +24,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::WeatherController>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::WeatherController>("tes3weatherController");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -76,9 +76,6 @@ namespace mwse {
 					self.lastActiveRegion->currentWeatherIndex = weatherId;
 				}
 			});
-
-			// Finish up our usertype.
-			state.set_usertype("tes3weatherController", usertypeDefinition);
 		}
 	}
 }

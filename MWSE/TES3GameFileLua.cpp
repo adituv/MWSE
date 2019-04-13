@@ -12,8 +12,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::GameFile>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::GameFile>("tes3gameFile");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -45,9 +45,6 @@ namespace mwse {
 
 			// Function bindings.
 			usertypeDefinition.set("deleteFile", [](TES3::GameFile& self) { self.deleteFile(); });
-
-			// Finish up our usertype.
-			state.set_usertype("tes3gameFile", usertypeDefinition);
 		}
 	}
 }

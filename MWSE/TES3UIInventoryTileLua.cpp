@@ -15,8 +15,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::UI::InventoryTile>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::UI::InventoryTile>("tes3inventoryTile");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Functions exposed as properties.
@@ -33,9 +33,6 @@ namespace mwse {
 			// Access into flags.
 			usertypeDefinition.set("isBartered", sol::readonly_property([](TES3::UI::InventoryTile& self) { return self.getFlag(TES3::UI::InventoryTileFlag::Bartered); }));
 			usertypeDefinition.set("isEquipped", sol::readonly_property([](TES3::UI::InventoryTile& self) { return self.getFlag(TES3::UI::InventoryTileFlag::Equipped); }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3inventoryTile", usertypeDefinition);
 		}
 	}
 }

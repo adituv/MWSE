@@ -19,50 +19,41 @@ namespace mwse {
 
 			// Binding for NI::DynamicEffect. TODO: MOVE THIS OUTSIDE OF HERE AT SOME POINT!
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<NI::DynamicEffect>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<NI::DynamicEffect>("niDynamicEffect");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Inherit NI::DynamicEffect.
 				usertypeDefinition.set(sol::base_classes, sol::bases<NI::Object, NI::ObjectNET, NI::AVObject>());
 				setUserdataForNIDynamicEffect(usertypeDefinition);
-
-				// Finish up our usertype.
-				state.set_usertype("niDynamicEffect", usertypeDefinition);
 			}
 
 			// Binding for NI::Light.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<NI::Light>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<NI::Light>("niLight");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Inherit NI::DynamicEffect.
 				usertypeDefinition.set(sol::base_classes, sol::bases<NI::Object, NI::ObjectNET, NI::AVObject, NI::DynamicEffect>());
 				setUserdataForNILight(usertypeDefinition);
-
-				// Finish up our usertype.
-				state.set_usertype("niLight", usertypeDefinition);
 			}
 
 			// Binding for NI::AmbientLight.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<NI::AmbientLight>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<NI::AmbientLight>("niAmbientLight");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Inherit NI::Light.
 				usertypeDefinition.set(sol::base_classes, sol::bases<NI::Object, NI::ObjectNET, NI::AVObject, NI::DynamicEffect, NI::Light>());
 				setUserdataForNILight(usertypeDefinition);
-
-				// Finish up our usertype.
-				state.set_usertype("niAmbientLight", usertypeDefinition);
 			}
 
 			// Binding for NI::DirectionalLight.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<NI::DirectionalLight>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<NI::DirectionalLight>("niDirectionalLight");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Inherit NI::Light.
@@ -71,29 +62,23 @@ namespace mwse {
 
 				// Basic property binding.
 				usertypeDefinition.set("direction", &NI::DirectionalLight::direction);
-
-				// Finish up our usertype.
-				state.set_usertype("niDirectionalLight", usertypeDefinition);
 			}
 
 			// Binding for NI::PointLight.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<NI::PointLight>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<NI::PointLight>("niPointLight");
 				usertypeDefinition.set("new", []() { return makeLuaNiPointer(NI::PointLight::create()); });
 
 				// Inherit NI::Light.
 				usertypeDefinition.set(sol::base_classes, sol::bases<NI::Object, NI::ObjectNET, NI::AVObject, NI::DynamicEffect, NI::Light>());
 				setUserdataForNIPointLight(usertypeDefinition);
-
-				// Finish up our usertype.
-				state.set_usertype("niPointLight", usertypeDefinition);
 			}
 
 			// Binding for NI::SpotLight.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<NI::SpotLight>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<NI::SpotLight>("niSpotLight");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Inherit NI::Light.
@@ -104,9 +89,6 @@ namespace mwse {
 				usertypeDefinition.set("direction", &NI::SpotLight::direction);
 				usertypeDefinition.set("spotAngle", &NI::SpotLight::spotAngle);
 				usertypeDefinition.set("spotExponent", &NI::SpotLight::spotExponent);
-
-				// Finish up our usertype.
-				state.set_usertype("niSpotLight", usertypeDefinition);
 			}
 		}
 	}

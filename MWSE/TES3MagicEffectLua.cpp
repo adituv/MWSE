@@ -13,8 +13,8 @@ namespace mwse {
 
 			// Binding for TES3::MagicEffect
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::MagicEffect>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::MagicEffect>("tes3magicEffect");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -119,15 +119,12 @@ namespace mwse {
 					[](TES3::MagicEffect& self, const char* value) { if (strlen(value) < 32) strcpy(self.icon, value); }
 				));
 				usertypeDefinition.set("particleTexture", sol::readonly_property([](TES3::MagicEffect& self) { return self.particleTexture; }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3magicEffect", usertypeDefinition);
 			}
 
 			// Binding for TES3::Effect
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Effect>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Effect>("tes3effect");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Convert to string.
@@ -150,9 +147,6 @@ namespace mwse {
 
 				// Allow easy access to the base magic effect.
 				usertypeDefinition.set("object", sol::readonly_property(&TES3::Effect::getEffectData));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3effect", usertypeDefinition);
 			}
 		}
 	}

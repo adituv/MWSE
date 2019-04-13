@@ -14,8 +14,8 @@ namespace mwse {
 
 			// Binding for TES3::Container.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Container>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Container>("tes3container");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -46,15 +46,12 @@ namespace mwse {
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("clone", &TES3::Container::clone);
 				usertypeDefinition.set("model", sol::property(&TES3::Container::getModelPath, &TES3::Container::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3container", usertypeDefinition);
 			}
 
 			// Binding for TES3::ContainerInstance.
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::ContainerInstance>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::ContainerInstance>("tes3containerInstance");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -87,9 +84,6 @@ namespace mwse {
 				// TODO: Deprecated. Remove before 2.1-stable.
 				usertypeDefinition.set("container", sol::readonly_property([](TES3::ContainerInstance& self) { return makeLuaObject(self.container); }));
 				usertypeDefinition.set("model", sol::property(&TES3::ContainerInstance::getModelPath, &TES3::ContainerInstance::setModelPath));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3containerInstance", usertypeDefinition);
 			}
 		}
 	}

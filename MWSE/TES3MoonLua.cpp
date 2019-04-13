@@ -12,8 +12,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Moon>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Moon>("tes3moon");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -34,9 +34,6 @@ namespace mwse {
 
 			// Functions exposed as properties.
 			usertypeDefinition.set("texture", sol::readonly_property([](TES3::Moon& self) -> const char* { return self.texturePath; }));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3moon", usertypeDefinition);
 		}
 	}
 }

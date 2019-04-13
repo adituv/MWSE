@@ -16,8 +16,8 @@ namespace mwse {
 
 			// Binding for TES3::AIPlanner
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::AIPlanner>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::AIPlanner>("tes3aiPlanner");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -32,15 +32,12 @@ namespace mwse {
 
 				// Indirect bindings to unions and arrays.
 				usertypeDefinition.set("packages", sol::readonly_property([](TES3::AIPlanner& self) { return std::ref(self.packages); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3aiPlanner", usertypeDefinition);
 			}
 
 			// Binding for TES3::AIPackage
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::AIPackage>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::AIPackage>("tes3aiPackage");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -57,9 +54,6 @@ namespace mwse {
 
 				// Access to other objects that need to be packaged.
 				usertypeDefinition.set("destinationCell", sol::readonly_property([](TES3::AIPackage& self) { return makeLuaObject(self.destinationCell); }));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3aiPackage", usertypeDefinition);
 			}
 		}
 	}

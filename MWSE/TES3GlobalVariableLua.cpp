@@ -11,8 +11,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::GlobalVariable>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::GlobalVariable>("tes3globalVariable");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -21,9 +21,6 @@ namespace mwse {
 
 			// Basic property binding.
 			usertypeDefinition.set("value", &TES3::GlobalVariable::value);
-
-			// Finish up our usertype.
-			state.set_usertype("tes3globalVariable", usertypeDefinition);
 		}
 	}
 }

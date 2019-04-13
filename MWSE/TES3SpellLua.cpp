@@ -5,6 +5,7 @@
 
 #include "TES3Util.h"
 
+#include "TES3MobileActor.h"
 #include "TES3Reference.h"
 #include "TES3Spell.h"
 
@@ -56,8 +57,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::Spell>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::Spell>("tes3spell");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -92,9 +93,6 @@ namespace mwse {
 			// Functions exposed as properties.
 			usertypeDefinition.set("autoCalc", sol::property(&TES3::Spell::getAutoCalc, &TES3::Spell::setAutoCalc));
 			usertypeDefinition.set("name", sol::property(&TES3::Spell::getName, &TES3::Spell::setName));
-
-			// Finish up our usertype.
-			state.set_usertype("tes3spell", usertypeDefinition);
 		}
 	}
 }

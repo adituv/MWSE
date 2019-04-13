@@ -15,8 +15,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<NI::Color>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<NI::Color>("niColor");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Operator overloading.
@@ -48,9 +48,6 @@ namespace mwse {
 
 			// Conversion to TES3::Vector3.
 			usertypeDefinition.set("toVector3", [](NI::Color& self) { return TES3::Vector3(self.r, self.g, self.b); });
-
-			// Finish up our usertype.
-			state.set_usertype("niColor", usertypeDefinition);
 		}
 	}
 }

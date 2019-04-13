@@ -83,8 +83,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<Element>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<Element>("tes3uiElement");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Read-only property bindings.
@@ -793,9 +793,6 @@ namespace mwse {
 				self.destroy();
 				// Lua cleanup runs in destroy event handler
 			});
-
-			// Finish up our usertype.
-			state.set_usertype("tes3uiElement", usertypeDefinition);
 		}
 	}
 }

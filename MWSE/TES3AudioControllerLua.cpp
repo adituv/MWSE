@@ -12,8 +12,8 @@ namespace mwse {
 			// Get our lua state.
 			sol::state& state = LuaManager::getInstance().getState();
 
-			// Start our usertype. We must finish this with state.set_usertype.
-			auto usertypeDefinition = state.create_simple_usertype<TES3::AudioController>();
+			// Start our usertype.
+			auto usertypeDefinition = state.new_usertype<TES3::AudioController>("tes3audioController");
 			usertypeDefinition.set("new", sol::no_constructor);
 
 			// Basic property binding.
@@ -45,9 +45,6 @@ namespace mwse {
 			usertypeDefinition.set("changeMusicTrack", [](TES3::AudioController& self, const char* filename, sol::optional<int> crossfade, sol::optional<float> volume) {
 				self.changeMusicTrack(filename, crossfade.value_or(1000), volume.value_or(1.0f));
 			});
-
-			// Finish up our usertype.
-			state.set_usertype("tes3audioController", usertypeDefinition);
 		}
 	}
 }

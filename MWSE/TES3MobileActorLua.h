@@ -9,7 +9,7 @@
 namespace mwse {
 	namespace lua {
 		template <typename T>
-		void setUserdataForMobileActor(sol::simple_usertype<T>& usertypeDefinition) {
+		void setUserdataForMobileActor(sol::usertype<T>& usertypeDefinition) {
 			setUserdataForMobileObject(usertypeDefinition);
 
 			// Basic property binding.

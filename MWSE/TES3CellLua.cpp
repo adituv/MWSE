@@ -76,23 +76,20 @@ namespace mwse {
 
 			// Binding for TES3::CellExteriorData
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::CellExteriorData>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::CellExteriorData>("tes3cellExteriorData");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
 				usertypeDefinition.set("cell", sol::readonly_property(&TES3::CellExteriorData::cell));
 				usertypeDefinition.set("gridX", sol::readonly_property(&TES3::CellExteriorData::gridX));
 				usertypeDefinition.set("gridY", sol::readonly_property(&TES3::CellExteriorData::gridY));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3cellExteriorData", usertypeDefinition);
 			}
 
 			// Binding for TES3::PackedColor
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::PackedColor>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::PackedColor>("tes3packedColor");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -106,15 +103,12 @@ namespace mwse {
 				usertypeDefinition.set("green", &TES3::PackedColor::g);
 				usertypeDefinition.set("blue", &TES3::PackedColor::b);
 				usertypeDefinition.set("alpha", &TES3::PackedColor::a);
-
-				// Finish up our usertype.
-				state.set_usertype("tes3packedColor", usertypeDefinition);
 			}
 
 			// Binding for TES3::Cell
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::Cell>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::Cell>("tes3cell");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Define inheritance structures. These must be defined in order from top to bottom. The complete chain must be defined.
@@ -206,9 +200,6 @@ namespace mwse {
 
 				// Basic function binding.
 				usertypeDefinition.set("iterateReferences", sol::overload(iterateReferences, iterateReferencesFiltered));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3cell", usertypeDefinition);
 			}
 		}
 	}

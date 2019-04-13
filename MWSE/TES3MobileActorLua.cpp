@@ -14,8 +14,8 @@ namespace mwse {
 
 			// Binding for TES3::MobileActor::ActiveMagicEffect
 			{
-				// Start our usertype. We must finish this with state.set_usertype.
-				auto usertypeDefinition = state.create_simple_usertype<TES3::MobileActor::ActiveMagicEffect>();
+				// Start our usertype.
+				auto usertypeDefinition = state.new_usertype<TES3::MobileActor::ActiveMagicEffect>("tes3activeMagicEffect");
 				usertypeDefinition.set("new", sol::no_constructor);
 
 				// Basic property binding.
@@ -40,9 +40,6 @@ namespace mwse {
 				usertypeDefinition.set("instance", sol::readonly_property([](TES3::MobileActor::ActiveMagicEffect& self) {
 					return TES3::WorldController::get()->spellInstanceController->getInstanceFromSerial(self.magicInstanceSerial);
 				}));
-
-				// Finish up our usertype.
-				state.set_usertype("tes3activeMagicEffect", usertypeDefinition);
 			}
 		}
 	}
