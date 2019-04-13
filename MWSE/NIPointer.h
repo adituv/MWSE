@@ -87,7 +87,6 @@ namespace NI {
 namespace sol {
 	template <typename T>
 	struct unique_usertype_traits<NI::Pointer<T>> {
-		template <typename> using rebind_base = void;
 		typedef T type;
 		typedef NI::Pointer<T> actual_type;
 		static const bool value = true;
